@@ -1,4 +1,4 @@
-# Redux Presentation by Patrick Riley
+# Cx Labs Presentation by Patrick Riley
 
 Presentation Link:
 http://icky-stamp.surge.sh/
