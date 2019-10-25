@@ -1,0 +1,25 @@
+import React, { createContext, useContext, useMemo, useState, Dispatch, SetStateAction } from 'react';
+type ISidebarNavContext = [boolean, Dispatch<SetStateAction<boolean>>, boolean, Dispatch<SetStateAction<boolean>>];
+const SidebarNavContext = createContext<ISidebarNavContext>([false, () => {}, false, () => {}]);
+interface SidebarNavContextProviderProps {
+  children: React.ReactNode;
+}
+const SidebarNavContextProvider: React.FC<SidebarNavContextProviderProps> = ({ children }) => {
+  const [isMini, setIsMini] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+
+  const value = useMemo(() => [isMini, setIsMini, isHidden, setIsHidden], [isMini, isHidden]) as ISidebarNavContext;
+  return <SidebarNavContext.Provider value={value}>{children}</SidebarNavContext.Provider>;
+};
+function useSidebarNavContext() {
+  const context = useContext(SidebarNavContext) as ISidebarNavContext;
+  const [isMini, setIsMini, isHidden, setIsHidden] = context;
+  const toggleIsMini = () => setIsMini(!isMini);
+  return {
+    isMini,
+    toggleIsMini,
+    isHidden,
+    setIsHidden,
+  };
+}
+export { SidebarNavContextProvider, useSidebarNavContext };

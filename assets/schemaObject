@@ -1,0 +1,26 @@
+const {
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLNonNull,
+  GraphQLInt
+} = require("graphql");
+
+const queryType = new GraphQLObjectType({
+  name: "Query",
+  fields: {
+    posts: {
+      type: postType
+    },
+    author: {
+      name: "author",
+      type: authorType,
+      arguments: { id: { type: new GraphQLNonNull(GraphQLInt) } }
+    }
+  }
+});
+
+// ... postType and authorType defined similarly
+
+const schema = new GraphQLSchema({
+  query: queryType
+});

@@ -1,7 +1,0 @@
-import { SHOW_MAPPING_WIZARD } from './OverviewConstants';
-
-export const showMappingWizardAction = () => dispatch => {
-  dispatch({
-    type: SHOW_MAPPING_WIZARD
-  });
-};

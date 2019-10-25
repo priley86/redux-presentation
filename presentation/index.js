@@ -12,7 +12,8 @@ import {
   Image,
   Quote,
   Slide,
-  Text
+  Text,
+  Markdown
 } from "spectacle";
 
 import CodeSlide from "spectacle-code-slide";
@@ -41,26 +42,14 @@ const theme = createTheme(
 );
 
 const images = {
-  reduxThunk: require("../assets/redux-thunk.gif"),
-  reduxThunkTest: require("../assets/redux-thunk-testing.png"),
-  reduxSaga: require("../assets/redux-saga.gif"),
-  reduxSagaTest: require("../assets/redux-saga-test.png"),
-  reduxObservable: require("../assets/redux-observable.gif"),
-  reduxObservableTest: require("../assets/redux-observable-test.png"),
-  reduxPromise: require("../assets/redux-promise.gif"),
-  reduxPromiseTest: require("../assets/redux-promise-test.png"),
-  reduxPromiseTestBetter: require("../assets/redux-promise-test-better.png"),
-  patternfly: require("../assets/patternfly-orb.svg"),
-  rain: require("../assets/rain.jpg"),
-  reduxSimple: require("../assets/redux-simple.png"),
-  mappingWizard: require("../assets/mappingWizard.gif"),
-  magic_school_bus: require("../assets/magic_school_bus.jpg"),
-  timeTravel: require("../assets/time-travel.gif"),
-  reactDevTools: require("../assets/react-dev-tools.png"),
-  setItFree: require("../assets/set-it-free.jpg"),
+  tree: require('../assets/tree.png'),
   pyramid: require("../assets/pyramid.png"),
+  npmcharts: require("../assets/npmcharts.png"),
   snapshot: require("../assets/snapshot.png"),
-  updateSnapshot: require("../assets/updateSnapshot.png")
+  updateSnapshot: require("../assets/updateSnapshot.png"),
+  logo: require("../assets/logo.png"),
+  me: require("../assets/me.jpg"),
+  abramov: require("../assets/abramov.png")
 };
 
 require("../assets/freezeFrame.js");
@@ -83,620 +72,411 @@ export default class Presentation extends React.Component {
         theme={theme}
       >
         <Slide transition={["zoom"]} bgColor="primary">
-          <Heading size={4} caps lineHeight={1} textColor="secondary">
-            Re·dux
-          </Heading>
+          <Image src={images.logo} />
+          <br />
           <Text margin="10px 0 0" textColor="tertiary" size={1}>
-            (from Latin <i>reducere</i>, "to bring back")
+            <i>CX Labs UI Architecture</i>
           </Text>
-          <br />
-          <br />
+
           <Text margin="10px 0 0" textColor="quarternary" textSize={20}>
-            By: Patrick Riley
+            Patrick Riley
           </Text>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary" style={{margin:0, padding:0}}>
+          <Heading size={6} textColor="secondary" caps>
+            About Me
+          </Heading>
+          <div style={{display: 'flex', flexDirection: 'columns', justifyContent: 'space-between', alignItems:'stretch', padding: 20}}>
+            <div style={{flexBasis: '50%'}}>
+            <List style={{margin: '0.5rem auto', display: 'flex', justifyContent: 'space-evenly', alignItems:'stretch', flexDirection: 'column', height: '100%', padding: '10px 0px'}} >
+                <ListItem textSize={29}>Software Developer, since 2008</ListItem>
+                <br/>
+                <ListItem textSize={29}>First job: Lexmark, Firmware team</ListItem>
+                <br/>
+                <ListItem textSize={29}>NC State Grad Student</ListItem>
+                <br/>
+                <ListItem textSize={29}>Hobbies: Hiking, Gaming, Entertaining Toddlers</ListItem>
+            </List>
+            </div>
+            <div style={{flexBasis: '35%'}}>
+            <Image src={images.me}/>
+            </div>
+          </div>
+
+        </Slide>
+        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
+          <Heading size={6} textColor="secondary" caps>
+            Outline
+          </Heading>
+          <List>
+            <ListItem>Packages/Monorepo Structure</ListItem>
+            <ListItem>UI Frameworks</ListItem>
+            <ListItem>GraphQL APIs</ListItem>
+            <ListItem>State Management</ListItem>
+            <ListItem>Testing</ListItem>
+            <ListItem>Performance & Bundling</ListItem>
+            <ListItem>UX Documentation</ListItem>
+            <ListItem><span style={{ color: 'gray'}}>In the works...</span></ListItem>
+          </List>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <Heading size={4} caps lineHeight={1} textColor="primary">
+            Monorepos
+          </Heading>
         </Slide>
         <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
           <BlockQuote>
             <Quote>
-              Redux provides a solid, stable and mature solution to managing
-              state in your React application.
+              It sucks more, and that’s a good thing..
             </Quote>
-            <Cite>Dan Abramov</Cite>
+            <Cite>Adam Jacob <br/><br/> Link: <a style={{color: '#fff'}} href="https://medium.com/@adamhjk/monorepo-please-do-3657e08a4b70">Monorepos, Please Do!</a></Cite>
           </BlockQuote>
         </Slide>
-        <Slide transition={["fade"]} bgImage={images.rain} />
-        <Slide transition={["fade"]}>
-          <Image src={images.reduxSimple} width={900} height={396} />
-        </Slide>
-
         <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Some Redux middlewares we are currently exploring:
+        <Heading size={6} caps lineHeight={1} textColor="#009900">
+            Monorepos encourage:
           </Heading>
           <List>
-            <ListItem>Redux Thunk</ListItem>
-            <ListItem>Redux Saga</ListItem>
-            <ListItem>Redux Observable</ListItem>
-            <ListItem>Redux Promise</ListItem>
+            <ListItem>Shared dependencies</ListItem>
+            <ListItem>Increased awareness, trade-offs more visible</ListItem>
+            <ListItem>Building all app dependencies together for better reliability</ListItem>
+            <ListItem>Consistent tooling globally (Prettier, Eslint, etc.)</ListItem>
           </List>
         </Slide>
+        <Slide transition={["fade"]}>
+          <Image src={images.tree}  />
+        </Slide>
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <Heading size={4} caps lineHeight={1} textColor="primary">
+            UI Frameworks
+          </Heading>
+        </Slide>
+        <Slide>
+          <Heading size={6} caps lineHeight={1} textColor="tertiary">
+              Current UI Frameworks & Tools:
+            </Heading>
+            <List>
+              <ListItem>Cisco UI Kit 2.0 & Sass CSS preprocessor</ListItem>
+              <ListItem>React / React Hooks, <i>16.10</i></ListItem>
+              <ListItem>React Bootstrap & React Router</ListItem>
+              <ListItem>Typescript 3.7 beta</ListItem>
+              <ListItem>Storybook for component demonstration</ListItem>
+              <ListItem>Create React App (Facebook App Template)</ListItem>
+            </List>
+        </Slide>
+        <Slide transition={["fade"]}>
+          <Image src={images.npmcharts} />
+        </Slide>
+        <Slide>
+          <Heading size={6} caps lineHeight={1} textColor="tertiary">
+              Why is React still #1?:
+            </Heading>
+            <br />
+            <List>
+              <ListItem>Virtual DOM / JSX</ListItem>
+              <br />
+              <ListItem>Great tooling (React DevTools, CRA, etc.) </ListItem>
+              <br />
+              <ListItem>Stable upgrade paths</ListItem>
+              <br />
+              <ListItem>Composition over Inheritance</ListItem>
+              <br />
+              <ListItem>Simplicity: we only reason about "props" and "state"</ListItem>
+              <br />
+            </List>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <Heading size={4} caps lineHeight={1} textColor="primary">
+            Demo Storybook UI
+          </Heading>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <Heading size={4} caps lineHeight={1} textColor="primary">
+            GraphQL APIs
+          </Heading>
+        </Slide>     
+        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
+          <Heading size={6} caps lineHeight={1} textColor="secondary">
+            Graphql UI Tools
+          </Heading>
+          <List>
+            <ListItem style={{fontSize: 28}}>Apollo Client, Apollo Link for GraphQL API consumption.</ListItem>
+            <br/>
+            <ListItem style={{fontSize: 28}}><i>@apollo/react-testing</i> for Apollo MockProvider.</ListItem>
+            <br/>
+            <ListItem style={{fontSize: 28}}>GraphQL Codegen for generating Apollo React Hooks.</ListItem>
+          </List>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
+          <Heading size={6} caps lineHeight={1} textColor="secondary">
+            Graphql Schema Types
+          </Heading>
+          <List>
+            <ListItem style={{fontSize: 28}}>Schema Definition Language (SDL), <i>.graphql</i> file</ListItem>
+            <ListItem style={{fontSize: 28}}>GraphQL.js GraphQLSchema object</ListItem>
+            <ListItem style={{fontSize: 28}}>Introspection Query Result, <i>.json</i> file</ListItem>
+            <br/ >
+            <div style={{fontSize: 28}}>
+              <a href="https://blog.apollographql.com/three-ways-to-represent-your-graphql-schema-a41f4175100d">https://blog.apollographql.com/three-ways-to-represent-your-graphql-schema-a41f4175100d</a>
+            </div>
+          </List>
+        </Slide>        
+        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
+          <Heading size={6} caps lineHeight={1} textColor="secondary">
+            Schema Defintion Language
+          </Heading>
+          <br/>
+          <div style={{textAlign: 'center'}}>
+          <Markdown textSize={16} textAlign={'left'} bgColor="#000" padding={20}>
+            {`
+            type Author {
+              id: Int!
+              firstName: String
+              lastName: String
+              posts: [Post]
+            }
+            type Post {
+              id: Int!
+              title: String
+              author: Author
+              votes: Int
+            }
+            type Query {
+              posts: [Post]
+              author(id: Int!): Author
+            }
+            `}
+          </Markdown>
+          </div>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
+          <Heading size={6} caps lineHeight={1} textColor="secondary">
+            GraphQL Schema Object
+          </Heading>
+          <br/>
+          <div style={{textAlign: 'center'}}>
+          <Markdown textSize={16} textAlign={'left'} bgColor="#000" padding={20}>
+            {`
+              const {
+                GraphQLObjectType,
+                GraphQLSchema,
+                GraphQLNonNull,
+                GraphQLInt
+              } = require("graphql");
 
-        {/** Redux Thunk **/}
-        <Slide
-          onActive={this.freezeFrame}
-          transition={["zoom"]}
-          bgColor="primary"
-        >
-          <Image className="freezeframe" src={images.reduxThunk} height={500} />
+              const queryType = new GraphQLObjectType({
+                name: "Query",
+                fields: {
+                  posts: {
+                    type: postType
+                  },
+                  author: {
+                    name: "author",
+                    type: authorType,
+                    arguments: { id: { type: new GraphQLNonNull(GraphQLInt) } }
+                  }
+                }
+              });
+            `}
+          </Markdown>
+          </div>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
+          <Heading size={6} caps lineHeight={1} textColor="secondary">
+            Introspection Query Result
+          </Heading>
+          <br/>
+          <div style={{textAlign: 'center'}}>
+          <Markdown textSize={16} textAlign={'left'} bgColor="#000" padding={20}>
+            {`
+              {
+                "__schema": {
+                  "queryType": {
+                    "name": "QueriesHolder"
+                  },
+                  "mutationType": {
+                    "name": "MutationsHolder"
+                  },
+                  "subscriptionType": null,
+                  "types": [
+                    {
+                      ...
+            `}
+          </Markdown>
+          </div>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
+          <Heading size={6} caps lineHeight={1} textColor="secondary">
+            Graphql Generation Process
+          </Heading>
+          <List ordered>
+            <ListItem style={{fontSize: 28}}>Run Introspection Query to download <i>schema.json</i> file</ListItem>
+            <br/>
+            <ListItem style={{fontSize: 28}}>Specify the Queries, Mutations, Subscriptions for generation in <i>graphql-tags</i></ListItem>
+            <br/>
+            <ListItem style={{fontSize: 28}}><i>Optional:</i> Include localSchema.graphql for "mocked" APIs</ListItem>
+            <br/>
+            <ListItem style={{fontSize: 28}}>Generate Typescript Types & React Hooks for Queries, Mutations, Subscriptions using graphql-codegen</ListItem>
+          </List>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <Heading size={4} caps lineHeight={1} textColor="primary">
+            Demo GraphQL Generation
+          </Heading>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <Heading size={4} caps lineHeight={1} textColor="primary">
+            State Management
+          </Heading>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
+          <Heading size={6} caps lineHeight={1} textColor="secondary">
+            Methods
+          </Heading>
+          <List ordered>
+            <ListItem style={{fontSize: 28}}>React <i>useReducer</i> & <i>useState</i> hooks combined w/ React <i>useContext</i>.</ListItem>
+            <br/>
+            <ListItem style={{fontSize: 28}}>React DevTools & <a href="https://github.com/reactrewind/react-rewind">React Rewind</a></ListItem>
+            <br/>
+            <ListItem style={{fontSize: 28}}>Redux? I don't think we need it, yet.
+              <List>
+                <ListItem style={{fontSize: 28}}><a href="https://kentcdodds.com/blog/application-state-management-with-react">https://kentcdodds.com/blog/application-state-management-with-react</a></ListItem>
+              </List>
+            </ListItem>
+          </List>
         </Slide>
         <CodeSlide
           bgColor="secondary"
           transition={["slide"]}
           lang="js"
-          code={require("raw-loader!../assets/store")}
+          code={require("raw-loader!../assets/useContext")}
           ranges={[
-            { loc: [0, 1], title: "STORE" },
+            { loc: [0, 1], title: "SidebarNavContext" },
             { loc: [1, 2] },
             { loc: [2, 3] },
-            { loc: [2, 3], note: "Just an extension to redux thunk!" },
-            { loc: [3, 4] },
-            { loc: [4, 6] },
-            { loc: [6, 8] },
-            { loc: [13, 22] }
-          ]}
-        />
-        <CodeSlide
-          bgColor="secondary"
-          transition={["slide"]}
-          lang="js"
-          code={require("raw-loader!../assets/provider")}
-          ranges={[
-            { loc: [0, 1], title: "PROVIDER" },
-            { loc: [1, 2] },
-            { loc: [4, 5] },
-            { loc: [6, 13] }
-          ]}
-        />
-        <CodeSlide
-          bgColor="secondary"
-          transition={["slide"]}
-          lang="js"
-          code={require("raw-loader!../assets/action")}
-          ranges={[{ loc: [0, 1], title: "ACTION" }, { loc: [1, 7] }]}
-        />
-        <CodeSlide
-          bgColor="secondary"
-          transition={["slide"]}
-          lang="js"
-          code={require("raw-loader!../assets/constants")}
-          ranges={[{ loc: [0, 4], title: "CONSTANTS" }]}
-        />
-        <CodeSlide
-          bgColor="secondary"
-          transition={["slide"]}
-          lang="js"
-          code={require("raw-loader!../assets/reducer")}
-          ranges={[
-            { loc: [0, 0], title: "REDUCER" },
-            { loc: [0, 1], note: "All reduced state should be immutable!" },
-            { loc: [8, 13] },
-            { loc: [13, 20] },
-            { loc: [20, 22] },
-            { loc: [22, 24] },
-            { loc: [24, 26] }
-          ]}
-        />
-        <CodeSlide
-          bgColor="secondary"
-          transition={["slide"]}
-          lang="js"
-          code={require("raw-loader!../assets/connected")}
-          ranges={[
-            { loc: [0, 0], title: "CONTAINER" },
-            { loc: [0, 1] },
-            { loc: [1, 2] },
-            {
-              loc: [5, 12],
-              note: "Use selectors to filter incoming reduced state!"
-            },
-            { loc: [16, 19] }
-          ]}
-        />
-        <Slide
-          onActive={this.freezeFrame}
-          transition={["zoom"]}
-          bgColor="primary"
-        >
-          <Image
-            className="freezeframe"
-            src={images.mappingWizard}
-            height={537}
-            width={1125}
-          />
-        </Slide>
-        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Redux Thunk
-          </Heading>
-          <List>
-            <ListItem textColor="#009900">Good things:</ListItem>
-            <br />
-            <List>
-              <ListItem>We're all familiar with promises</ListItem>
-              <ListItem>Easy to test in isolation</ListItem>
-              <ListItem>Not much boilerplate</ListItem>
-            </List>
-          </List>
-        </Slide>
-
-        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Redux Thunk
-          </Heading>
-          <List>
-            <ListItem textColor="#D00000">Bad things:</ListItem>
-            <br />
-            <List>
-              <ListItem>We have to use promises</ListItem>
-              <ListItem>
-                Chaining actions can get complicated (you'll use{" "}
-                <a href="https://github.com/theforeman/foreman/blob/develop/webpack/assets/javascripts/react_app/redux/actions/notifications/index.js#L21">
-                  promise chains
-                </a>)
-              </ListItem>
-            </List>
-          </List>
-        </Slide>
-
-        {/** Redux Saga **/}
-        <Slide
-          onActive={this.freezeFrame}
-          transition={["zoom"]}
-          bgColor="primary"
-        >
-          <Image className="freezeframe" src={images.reduxSaga} height={500} />
-        </Slide>
-        <CodeSlide
-          bgColor="secondary"
-          transition={["slide"]}
-          lang="js"
-          code={require("raw-loader!../assets/saga")}
-          ranges={[
-            { loc: [0, 0], title: "SAGA" },
-            { loc: [0, 1] },
-            {
-              loc: [13, 21],
-              note: "Generators make async actions appear synchronous"
-            },
-            {
-              loc: [21, 32]
-            },
-            { loc: [37, 42] }
+            { loc: [6, 13], note: "Provider holds the stateful values." },
+            { loc: [13, 14], note: "'use' function exposes state objects and callbacks to other components." },
+            { loc: [14, 24] },
+            { loc: [24, 25] }
           ]}
         />
         <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Redux Saga
+          <Heading size={6} caps lineHeight={1} textColor="secondary">
+            Consuming the SidebarNav Context
           </Heading>
-          <List>
-            <ListItem textColor="#009900">Good things:</ListItem>
-            <br />
-            <List>
-              <ListItem>
-                Generators/yield make async operations a breeze
-              </ListItem>
-              <ListItem>
-                You can get much better test coverage of the store
-              </ListItem>
-            </List>
-          </List>
-        </Slide>
+          <br/>
+          <div style={{textAlign: 'center'}}>
+          <Markdown textSize={16} textAlign={'left'} bgColor="#000" padding={20}>
+            {`
+    import { useSidebarNavContext } from './SidebarNavContext';
 
-        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Redux Saga
-          </Heading>
-          <List>
-            <ListItem textColor="#D00000">Bad things:</ListItem>
-            <br />
-            <List>
-              <ListItem>You have much more boilerplate</ListItem>
-              <ListItem>Starts to feel like pub/sub...</ListItem>
-              <ListItem>Confusing for beginners</ListItem>
-            </List>
-          </List>
+    export const SidebarNav: React.FC<SidebarNavProps> = ({ children, ...props }) => {
+      const location = useLocation();
+      const { isMini, toggleIsMini } = useSidebarNavContext();
+      const sidebarToggleClicked = (e: MouseEvent) => {
+        e.preventDefault();
+        toggleIsMini();
+      };
+      return (
+        &lt;Sidebar className="col-md-1 col-lg-3 col-xl-2" mini={isMini} {...props}&gt;
+          &lt;Sidebar.Header className="hidden-md-down"&gt;
+            &lt;Sidebar.Toggle isMini={isMini} onClick={e => sidebarToggleClicked(e)} /&gt;
+          &lt;/Sidebar.Header&gt;
+        ...
+      );
+            `}
+          </Markdown>
+          </div>
         </Slide>
-
-        {/** Redux Observable **/}
-        <Slide
-          onActive={this.freezeFrame}
-          transition={["zoom"]}
-          bgColor="primary"
-        >
-          <Image
-            className="freezeframe"
-            src={images.reduxObservable}
-            height={500}
-          />
-        </Slide>
-        <CodeSlide
-          bgColor="secondary"
-          transition={["slide"]}
-          lang="js"
-          code={require("raw-loader!../assets/observable")}
-          ranges={[
-            { loc: [0, 0], title: "OBSERVABLE" },
-            {
-              loc: [0, 1],
-              note:
-                "RxJS uses '$' to identify variables that reference a stream."
-            },
-            {
-              loc: [1, 7]
-            }
-          ]}
-        />
-        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Redux Observable
-          </Heading>
-          <List>
-            <ListItem textColor="#009900">Good things:</ListItem>
-            <br />
-            <List>
-              <ListItem>Uses RxJS.</ListItem>
-              <ListItem>
-                You can finally handle a stream of actions easily.
-              </ListItem>
-            </List>
-          </List>
-        </Slide>
-
-        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Redux Observable
-          </Heading>
-          <List>
-            <ListItem textColor="#D00000">Bad things:</ListItem>
-            <br />
-            <List>
-              <ListItem>
-                <quote>
-                  <i>
-                    "Testing async code that creates side effects isn't easy.
-                    We're still learning the best way to test Epics."
-                  </i>
-                </quote>
-              </ListItem>
-            </List>
-          </List>
-        </Slide>
-
-        {/** Redux Promise Middleware **/}
-        <Slide
-          onActive={this.freezeFrame}
-          transition={["zoom"]}
-          bgColor="primary"
-        >
-          <Image
-            className="freezeframe"
-            src={images.reduxPromise}
-            height={500}
-          />
-        </Slide>
-        <CodeSlide
-          bgColor="secondary"
-          transition={["slide"]}
-          lang="js"
-          code={require("raw-loader!../assets/promise")}
-          ranges={[
-            { loc: [0, 0], title: "PROMISE" },
-            {
-              loc: [1, 2],
-              note: "API request has been abstracted with axios"
-            },
-            {
-              loc: [10, 11],
-              note: "Action creator called by view."
-            },
-            {
-              loc: [11, 14],
-              note: "Dispatch base action with promise payload."
-            },
-            {
-              loc: [15, 19]
-            }
-          ]}
-        />
-        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Redux Promise
-          </Heading>
-          <List>
-            <ListItem textColor="#009900">Good things:</ListItem>
-            <br />
-            <List>
-              <ListItem>
-                Removes a lot of additional boilerplate from Saga
-              </ListItem>
-              <ListItem>Just an extension to thunk</ListItem>
-              <ListItem>Chaining actions with async/await</ListItem>
-              <ListItem>Easy to use with axios/mock-redux-store</ListItem>
-              <ListItem>Easier for beginners</ListItem>
-            </List>
-          </List>
-        </Slide>
-
-        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Redux Promise
-          </Heading>
-          <List>
-            <ListItem textColor="#D00000">Bad things:</ListItem>
-            <br />
-            <List>
-              <ListItem>redux-mock-store does not accept reducers</ListItem>
-              <ListItem>Not much else so far...</ListItem>
-            </List>
-          </List>
-        </Slide>
-
-        <Slide transition={["zoom"]} bgColor="primary">
-          <Heading size={4} caps lineHeight={1} textColor="secondary">
-            Debugging
-          </Heading>
-        </Slide>
-        <Slide transition={["fade"]} bgImage={images.magic_school_bus} />
-        <Slide
-          onActive={this.freezeFrame}
-          transition={["zoom"]}
-          bgColor="primary"
-        >
-          <Image
-            className="freezeframe"
-            src={images.timeTravel}
-            height={516}
-            width={916}
-          />
-        </Slide>
-        <Slide transition={["zoom"]} bgColor="primary">
-          <Image src={images.reactDevTools} height={618} width={944} />
-        </Slide>
-
-        <Slide transition={["zoom"]} bgColor="primary">
-          <Heading size={4} caps lineHeight={1} textColor="secondary">
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <Heading size={4} caps lineHeight={1} textColor="primary">
             Testing
           </Heading>
         </Slide>
         <Slide transition={["zoom"]} bgColor="primary">
-          <Image src={images.setItFree} height={600} width={800} />
-        </Slide>
-        <Slide transition={["zoom"]} bgColor="primary">
-          <Image src={images.snapshot} height={624} width={860} />
-        </Slide>
-        <Slide transition={["zoom"]} bgColor="primary">
-          <Image src={images.updateSnapshot} height={406} width={772} />
-        </Slide>
-        <Slide transition={["zoom"]} bgColor="primary">
           <Image src={images.pyramid} height={630} width={1000} />
         </Slide>
-        <Slide transition={["zoom"]} bgColor="primary">
-          <Image
-            className="freezeframe"
-            src={images.reduxThunkTest}
-            height={500}
-          />
+        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
+          <Heading size={6} caps lineHeight={1} textColor="secondary">
+            Testing Tools
+          </Heading>
+          <List>
+            <ListItem style={{fontSize: 28}}><i>@apollo/react-testing</i> for Apollo MockProvider.</ListItem>
+            <br />
+            <ListItem style={{fontSize: 28}}>Jest <a href="https://jestjs.io/docs/en/expect">Expect</a>, Jest Snapshots, Coverage.</ListItem>
+            <br/>
+            <ListItem style={{fontSize: 28}}><a href="https://testing-library.com/docs/react-testing-library/intro">React Testing Library</a>, uses <i>data-test-id</i> attributes for integration tests.</ListItem>
+            <br />
+            <ListItem style={{fontSize: 28}}>Coming soon: Puppeteer / Chrome Headless</ListItem>
+          </List>
         </Slide>
-
-        <Slide transition={["zoom"]} bgColor="primary">
-          <Image
-            className="freezeframe"
-            src={images.reduxSagaTest}
-            height={500}
-          />
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <Heading size={4} caps lineHeight={1} textColor="primary">
+            Demo Testing Tools
+          </Heading>
         </Slide>
-
-        <Slide transition={["zoom"]} bgColor="primary">
-          <Image
-            className="freezeframe"
-            src={images.reduxObservableTest}
-            height={500}
-          />
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <Heading size={4} caps lineHeight={1} textColor="primary">
+            Performance & Bundling
+          </Heading>
         </Slide>
-
-        <Slide transition={["zoom"]} bgColor="primary">
-          <Image
-            className="freezeframe"
-            src={images.reduxPromiseTest}
-            height={500}
-          />
+        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
+          <Heading size={6} caps lineHeight={1} textColor="secondary">
+            Methods
+          </Heading>
+          <List>
+            <ListItem style={{fontSize: 28}}>Code Splitting: <i>React.lazy</i> / React Suspense</ListItem>
+            <br />
+            <ListItem style={{fontSize: 28}}>Sourcemap Explorer</ListItem>
+            <br />
+            <ListItem style={{fontSize: 28}}>Coming soon: Puppeteer bundle analyzer</ListItem>
+          </List>
+        </Slide>    
+        <Slide transition={["fade"]} bgColor="primary" textColor="secondary">
+          <Image src={images.abramov} height={500} />
+          <br />
+          <a href="https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html">https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html</a>
         </Slide>
-
-        <CodeSlide
-          bgColor="secondary"
-          transition={["slide"]}
-          lang="js"
-          code={require("raw-loader!../assets/actionTest")}
-          ranges={[
-            { loc: [0, 0], title: "Action Test" },
-            {
-              loc: [0, 1],
-              note: "Create mock store with redux-mock-store"
-            },
-            {
-              loc: [4, 8],
-              note: "Fixtures for initial state and response data."
-            },
-            {
-              loc: [13, 16],
-              note: "Insert our middlewares into the mock store the same way."
-            },
-            {
-              loc: [24, 29],
-              note: "Mock the response with axios."
-            },
-            {
-              loc: [29, 35],
-              note:
-                "Call the action creator and then snapshot the additional actions created."
-            }
-          ]}
-        />
-        <CodeSlide
-          bgColor="secondary"
-          transition={["slide"]}
-          lang="js"
-          code={require("raw-loader!../assets/actionTestSnapshot")}
-          ranges={[
-            { loc: [0, 1], title: "Action Test Snapshot" },
-            {
-              loc: [4, 8],
-              note: "Snapshot shows that the PENDING action was fired."
-            },
-            {
-              loc: [34, 38],
-              note: "The FULFILLED action fired after 200 response."
-            },
-            {
-              loc: [47, 51],
-              note: "The REJECTED action fired after 404 response."
-            }
-          ]}
-        />
-
-        <Slide transition={["zoom"]} bgColor="primary">
-          <Image
-            className="freezeframe"
-            src={images.reduxPromiseTestBetter}
-            height={500}
-          />
-        </Slide>
-
-        <CodeSlide
-          bgColor="secondary"
-          transition={["slide"]}
-          lang="js"
-          code={require("raw-loader!../assets/integrationTest")}
-          ranges={[
-            { loc: [0, 0], title: "Integration Test" },
-            {
-              loc: [3, 4],
-              note: "Create a real redux store."
-            },
-            {
-              loc: [4, 5],
-              note: "Use Enzyme for mounting our connected component."
-            },
-            {
-              loc: [19, 27],
-              note: "Generate the store with our reducers integrated."
-            },
-            {
-              loc: [28, 34],
-              note: "Mount the container component injecting the redux store."
-            },
-            {
-              loc: [36, 41],
-              note:
-                "IMPORTANT: Find the unconnected component after it has rendered."
-            },
-            {
-              loc: [42, 43],
-              note: "Snapshot the reduced state from mapStateToProps."
-            }
-          ]}
-        />
-        <CodeSlide
-          bgColor="secondary"
-          transition={["slide"]}
-          lang="js"
-          code={require("raw-loader!../assets/integrationTestSnapshot")}
-          ranges={[
-            { loc: [0, 1], title: "Integration Test Snapshot" },
-            {
-              loc: [2, 7],
-              note: "Snapshot shows the connected/reduced state."
-            }
-          ]}
-        />
-
-        <Slide transition={["zoom"]} bgColor="primary">
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <Heading size={4} caps lineHeight={1} textColor="primary">
+            Demo Sourcemap Explorer
+          </Heading>
+        </Slide>    
+        <Slide transition={["fade"]} bgColor="primary" textColor="secondary">
           <Heading size={4} caps lineHeight={1} textColor="secondary">
-            References
+            UX Documentation
           </Heading>
+          <br />
+          <a href="https://calo-docs.cisco.com/doku.php?id=internal:at_team:labautomation:ux_architecture">
+          https://calo-docs.cisco.com/doku.php?id=internal:at_team:labautomation:ux_architecture
+          </a>
         </Slide>
-
         <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Redux Saga
+          <Heading size={6} caps lineHeight={1} textColor="secondary">
+            Coming Soon...
           </Heading>
           <List>
-            <ListItem textColor="#000">Links:</ListItem>
+            <ListItem style={{fontSize: 28}}>CI Integration / Package releases</ListItem>
             <br />
-            <List>
-              <ListItem>
-                <a href="https://github.com/patternfly/patternfly-react-demo-app/blob/master/src/sagas/index.js">
-                  Simple example
-                </a>
-              </ListItem>
-              <ListItem>
-                <a href="https://github.com/vojtechszocs/react-playground/tree/master/src">
-                  More examples
-                </a>
-              </ListItem>
-              <ListItem>
-                <a href="https://redux-saga.js.org/docs/advanced/Testing.html">
-                  Writing Tests
-                </a>
-              </ListItem>
-            </List>
+            <ListItem style={{fontSize: 28}}>Environment Setup Scripts</ListItem>
+            <br />
+            <ListItem style={{fontSize: 28}}>E2E Testing - Puppeteer / Puppeteer Jest</ListItem>
+            <br />
+            <ListItem style={{fontSize: 28}}>IPAM Concepts / IPAM UI</ListItem>
           </List>
-        </Slide>
-
+        </Slide> 
         <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Redux Observable
+          <Heading size={6} caps lineHeight={1} textColor="secondary">
+            I Want Your Feedback
           </Heading>
           <List>
-            <ListItem textColor="#000">Links:</ListItem>
+            <ListItem style={{fontSize: 28}}>Questions?</ListItem>
             <br />
-            <List>
-              <ListItem>
-                <a href="https://redux-observable.js.org/docs/recipes/WritingTests.html">
-                  Writing Tests
-                </a>
-              </ListItem>
-            </List>
-          </List>
-        </Slide>
-
-        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Redux Promise
-          </Heading>
-          <List>
-            <ListItem textColor="#000">Links:</ListItem>
+            <ListItem style={{fontSize: 28}}>Suggestions?</ListItem>
             <br />
-            <List>
-              <ListItem>
-                <a href="https://github.com/priley86/miq_v2v_ui_plugin/blob/master/app/javascript/redux/actions/mappingWizard/mappingWizard.test.js">
-                  A simple example with axios
-                </a>
-              </ListItem>
-              <ListItem>
-                <a href="https://kentcdodds.com/post/write-integration-tests/">
-                  Write tests, not too many, mostly integration.
-                </a>
-              </ListItem>
-              <ListItem>
-                <a href="https://hackernoon.com/low-effort-high-value-integration-tests-in-redux-apps-d3a590bd9fd5">
-                  High Value Integration Tests
-                </a>
-              </ListItem>
-            </List>
+            <ListItem style={{fontSize: 28}}>Ideas...</ListItem>
           </List>
-        </Slide>
-
+        </Slide> 
         <Slide transition={["zoom"]} bgColor="primary">
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
             Thank You
